@@ -1,0 +1,36 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+def siteUrl = providers.gradleProperty('HAMK_SITE_URL')
+    .orElse('https://colony-estimated-imagine-mysimon.trycloudflare.com')
+    .get()
+
+android {
+    namespace 'com.hamk.inventory'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.hamk.inventory'
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName '1.0.0'
+
+        buildConfigField 'String', 'SITE_URL', "\"${siteUrl.replace('\\', '\\\\').replace('"', '\\"')}\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+}
